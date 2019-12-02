@@ -1,0 +1,124 @@
+#include <iostream>
+
+using std::cout;
+using std::cin;
+using std::endl;
+
+int LeafYear(int year, int month) {
+	int leaf;
+	int d_max;
+	if (year % 4 == 0) {//윤년검사
+		leaf = 1;
+		if (year % 100 == 0 && year % 400 == 0) {
+			leaf = 1;
+		}
+		else if (year % 100 == 0) {
+			leaf = 0;
+		}
+	}
+
+	if (month == 2) {//월별 날짜 갯수
+		if (leaf == 1) {
+			d_max = 29;
+		}
+		else if (leaf == 0) {
+			d_max = 28;
+		}
+	}
+	else if (month < 8) {
+		if (month % 2 != 0) {
+			d_max = 31;
+		}
+		else
+			d_max = 30;
+	}
+	else if (month >= 8) {
+		if (month % 2 != 0) {
+			d_max = 30;
+		}
+		else
+			d_max = 31;
+	}
+
+	return d_max;
+}
+
+class Date {
+		int year;
+		int month;
+		int day;
+
+public:
+			void set_date(int _year, int _month, int _day) {
+				year = _year;
+				month = _month;
+				day = _day;
+				
+		}
+			void add_day(int inc) {
+				
+				day += inc;
+				
+			}
+			void add_month(int inc) {
+				month += inc;
+				
+			}
+			void add_year(int inc) {
+				year += inc;
+			}
+			void get_date() {
+				int d_max;
+				if (month > 12) {
+					year++;
+					month -= 12;
+				}
+
+
+				while(1){
+					d_max = LeafYear(year, month);
+					if (day <= d_max)
+						break;
+					month++;
+					day -= d_max;
+					if (month > 12) {
+						year++;
+						month -= 12;
+					}
+				
+				}
+				cout << year << " " << month << " " << day << endl;
+			}
+};
+
+int main() {
+	Date date;
+	int year, month, day;
+	int n;
+	int inc;
+	cout << "Please enter info(ex : 2019 03 12)"; cin >> year >> month >> day;
+	date.set_date(year, month, day);
+	cout << "1. Day++" << endl;
+	cout << "2. Month++" << endl;
+	cout << "3. Year++" << endl;
+	cin >> n;
+	switch (n){
+	case 1:
+		cin >> inc;
+		date.add_day(inc);
+		break;
+	case 2:
+		cin >> inc;
+		date.add_month(inc);
+		break;
+	case 3:
+		cin >> inc;
+		date.add_year(inc);
+		break;
+	default:
+		cout << "What?";
+		break;
+	}
+	cout << "Result : ";
+	date.get_date();
+}
