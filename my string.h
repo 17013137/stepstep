@@ -1,5 +1,5 @@
 #include <iostream>
-#include<string.h>
+#include<string.h> //strlen때문에 사용함
 #include<algorithm>
 
 class Mystring {
@@ -112,11 +112,11 @@ Mystring& Mystring::insert(int loc, Mystring& str) {
 		str_len = memory_capacity;
 		return *this;
 	}
-		for (int i = str_len - 1; i >= loc; i--) {// 배열 안 숫자 카운팅용
-			str_con[i + str.str_len] = str_con[i]; // 글자 밀어내기
+		for (int i = str_len - 1; i >= loc; i--) {
+			str_con[i + str.str_len] = str_con[i]; 
 		}
-		for (int i = 0; i < str.str_len; i++) {	//배열 안 숫자 카운팅
-			str_con[i + loc] = str.str_con[i];	//loc는 위치순서임.
+		for (int i = 0; i < str.str_len; i++) {	
+			str_con[i + loc] = str.str_con[i];	
 		}
 
 		str_len += str.str_len;
